@@ -25,20 +25,20 @@ app.post("/users", (req, res) => {
 
 app.get("/users/:id", (req, res) => {
   let id = req.params.id;
-  User.find({ name: `M S Dhoni` }, (err, user) => {
-    if (err) {
-      next(err);
-    } else {
-      res.json({ Users: user });
-    }
-  });
-  User.findOne({ _id: id }, (err, user) => {
-    if (err) {
-      next(err);
-    } else {
-      res.json(user);
-    }
-  });
+  // User.find({ name: `M S Dhoni` }, (err, user) => {
+  //   if (err) {
+  //     next(err);
+  //   } else {
+  //     res.json({ Users: user });
+  //   }
+  // });
+  // User.findOne({ _id: id }, (err, user) => {
+  //   if (err) {
+  //     next(err);
+  //   } else {
+  //     res.json(user);
+  //   }
+  // });
   User.findById(id, (err, user) => {
     if (err) {
       next(err);
@@ -50,32 +50,32 @@ app.get("/users/:id", (req, res) => {
 //User.find always returns the array of all users that matches the query while User.findOne and User.findById returns the object of only one user that matches the query findOne return the first document that matches the query.
 
 app.put("/users/:id", (req, res) => {
-  User.updateMany(
-    { sports: "soccer" },
-    { sports: "football" },
-    { new: true },
-    (err, updatedUser) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json(updatedUser);
-      }
-    }
-  );
-  User.updateOne(
-    { _id: req.params.id },
-    { name: "Sachin" },
-    { new: true },
-    (err, updatedUser) => {
-      if (err) {
-        next(err);
-      } else {
-        res.json(updatedUser);
-      }
-    }
-  );
+  // User.updateMany(
+  //   { sports: "soccer" },
+  //   { sports: "football" },
+  //   { new: true },
+  //   (err, updatedUser) => {
+  //     if (err) {
+  //       next(err);
+  //     } else {
+  //       res.json(updatedUser);
+  //     }
+  //   }
+  // );
+  // User.updateOne(
+  //   { _id: req.params.id },
+  //   { name: "Sachin" },
+  //   { new: true },
+  //   (err, updatedUser) => {
+  //     if (err) {
+  //       next(err);
+  //     } else {
+  //       res.json(updatedUser);
+  //     }
+  //   }
+  // );
   User.findByIdAndUpdate(
-    id,
+    req.params.id,
     { name: "Gawaskar" },
     { new: true },
     (err, updatedUser) => {
@@ -89,7 +89,7 @@ app.put("/users/:id", (req, res) => {
 });
 
 app.delete("/users/:id", (req, res) => {
-  var userId = req.params.id;
+  var id = req.params.id;
   User.findByIdAndDelete(id, (err, user) => {
     if (err) return next(err);
     res.send("user deleted");
